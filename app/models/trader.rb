@@ -4,10 +4,15 @@ class Trader
   class << self
     attr_accessor :consecutive_buys
 
-    def begin_trade_cycle
+    def begin_trade_cycle(log: false)
+      unless log
+        Bot.log(Rainbow("AR logging disabled").green.bright
+)
+        ActiveRecord::Base.logger.level = 1
+      end
       loop do
         # When running after code changes to Trader it can be handy to see the call stack size here.
-        Bot.log("Call stack #{caller.size}")
+        Bot.log(Rainbow("Call stack #{caller.size}").faint)
         Bot.mantra if BotSettings::PRINT_MANTRA
         Sentinel.sync_executed_sells
         SettingsValidator.validate
@@ -43,7 +48,7 @@ class Trader
 
     def monitor_scrum(id, bid)
       loop do
-        Bot.log("Trades flipped: #{FlippedTrade.flip_count}")
+        Bot.log(Rainbow("Trades flipped: #{FlippedTrade.flip_count}").faint)
 
         buy_order = RequestUsher.execute('order', id)
         handle_filled_scrum(buy_order) && break if buy_filled?(buy_order)
@@ -61,7 +66,7 @@ class Trader
     end
 
     def handle_filled_scrum(buy_order)
-      Bot.log('The SCRUM filled')
+      Bot.log(Rainbow('The SCRUM filled').red)
       handle_filled_buy(buy_order)
       @status = { buy_down: true }
     end
@@ -102,7 +107,7 @@ class Trader
       flipped_trade.update_attributes(sell_price: params[:ask],
                                       sell_order_id: sell_resp['id'],
                                       base_currency_profit: base_profit)
-      Bot.log("SELL placed. Response: ", sell_resp)
+      Bot.log(Rainbow("SELL placed. Response: ").green, sell_resp)
     end
 
     def place_buy_down(previous_bid)
@@ -302,7 +307,7 @@ class Trader
 
       reconcile_sales if @sold_ids.any?
 
-      Bot.log("PENDING SELLS: #{open_sells.size}")
+      Bot.log(Rainbow("PENDING SELLS: #{open_sells.size}").cyan)
 
       sell_stats_hash
     end

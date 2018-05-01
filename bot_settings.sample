@@ -3,9 +3,9 @@
 class BotSettings
   unless Rails.env.test?
     # :nocov:
-    QUANTITY = 0.1 # per buy order quantity
-    BUY_DOWN_INTERVAL = 0.20 # nominal
-    PROFIT_INTERVAL = 0.20 # nominal
+    QUANTITY = 0.25 # per buy order quantity
+    BUY_DOWN_INTERVAL = 0.25 # nominal
+    PROFIT_INTERVAL = 0.25 # nominal
     PRINT_MANTRA = true
     HOARD_QUOTE_PROFITS = true
     BASE_CURRENCY_STASH = 0.0 # percent as decimal - amount of profit to realize in base currency

@@ -99,7 +99,7 @@ class FlippedTrade < ApplicationRecord
     self.sell_pending = false
     msg = "Id: #{id}, Profit (#{ENV['QUOTE_CURRENCY']}): #{quote_currency_profit.round(8)}, " +
           "Profit (#{ENV['BASE_CURRENCY']}): #{base_currency_profit}, Fee: #{sell_fee}."
-    Bot.log(msg)
+    Bot.log(Rainbow(msg).green.bright.underline)
     save
   end
 end

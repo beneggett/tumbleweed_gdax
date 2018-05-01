@@ -61,7 +61,7 @@ class Decide
       balance = quote_currency_balance
       cost = buy_order_cost(params)
 
-      Bot.log("Usable balance: #{balance}, Cost if fee: #{cost}")
+      Bot.log(Rainbow("Usable balance: #{balance}, Cost if fee: #{cost}").yellow)
       balance > cost
     end
 
@@ -88,7 +88,7 @@ class Decide
       buy_quantity = BigDecimal.new(buy_order['filled_size'])
       fee = BigDecimal.new(buy_order['fill_fees'])
 
-      Bot.log("Buy fees incurred: #{fee}")
+      Bot.log(Rainbow("Buy fees incurred: #{fee}").red)
 
       return maker_sell_params(buy_price, buy_quantity) if fee.zero?
       taker_sell_params(buy_order, buy_price, buy_quantity, fee)
@@ -148,7 +148,7 @@ class Decide
       ask = (cost / buy_quantity).round(2) + 0.01
       msg = "#{ENV['QUOTE_CURRENCY']} Profit would be #{profit_without_stash.round(8)}. " +
             "Selling at breakeven: #{ask}."
-      Bot.log(msg, nil, :warn)
+      Bot.log(Rainbow(msg).green, nil, :warn)
 
       {
         ask: ask,
@@ -189,7 +189,7 @@ class Decide
     end
 
     def skip_stashing_params(ask, buy_quantity, profit_without_stash, quantity_less_stash)
-      Bot.log("Sell size after stash would be invalid (#{quantity_less_stash.round(8)}). Skipping stashing.")
+      Bot.log(Rainbow("Sell size after stash would be invalid (#{quantity_less_stash.round(8)}). Skipping stashing.").pink)
       log_sell_side(ask, profit_without_stash, 0.0)
 
       {
@@ -201,7 +201,7 @@ class Decide
     def log_sell_side(ask, quote_profit, base_profit)
       msg = "Selling at #{ask.round(2)} for an estimated profit of #{quote_profit.round(8)} " +
             "#{ENV['QUOTE_CURRENCY']} and #{base_profit.round(8)} #{ENV['BASE_CURRENCY']}."
-      Bot.log(msg)
+      Bot.log(Rainbow(msg).green.bright)
     end
 
     # def _ask_price(buy_order)

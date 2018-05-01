@@ -21,6 +21,7 @@ gem 'brakeman', :require => false
 gem 'bundler-audit', :require => false
 gem 'rubocop', require: false
 
+gem 'rainbow'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -44,6 +45,7 @@ group :development, :test do
   gem 'rails_best_practices', require: false
   gem 'reek', require: false
   gem 'byebug', platform: :mri
+  gem 'pry-rails'
 end
 
 group :development do

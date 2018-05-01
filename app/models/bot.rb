@@ -5,8 +5,8 @@ class Bot
     def log(phrase, data = nil, log_level = :info)
       # :nocov:
       unless Rails.env == 'test'
-        Rails.logger.ap phrase, log_level
-        Rails.logger.ap data if data
+        Rails.logger.send log_level, phrase
+        Rails.logger.send log_level, Rainbow(data).green if data
       end
       # :nocov:
     end

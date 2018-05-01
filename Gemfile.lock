@@ -65,6 +65,7 @@ GEM
       sexp_processor
     codeclimate-engine-rb (0.4.0)
       virtus (~> 1.0)
+    coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     coinbase-exchange (0.1.1)
@@ -142,6 +143,11 @@ GEM
       ast (~> 2.2)
     pg (0.21.0)
     powerpack (0.1.1)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.4)
@@ -289,9 +295,11 @@ DEPENDENCIES
   json_spec
   listen (~> 3.0.5)
   pg
+  pry-rails
   puma (~> 3.0)
   rails (~> 5.1.5)
   rails_best_practices
+  rainbow
   rake
   reek
   rspec
