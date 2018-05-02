@@ -202,6 +202,10 @@ class Decide
       msg = "Selling at #{ask.round(2)} for an estimated profit of #{quote_profit.round(8)} " +
             "#{ENV['QUOTE_CURRENCY']} and #{base_profit.round(8)} #{ENV['BASE_CURRENCY']}."
       Bot.log(Rainbow(msg).green.bright)
+      say_msg = "Cha Ching! You made #{quote_profit.round(8)} dollas! Mo money, mo problems"
+      Thread.new do
+        `say #{say_msg}`
+      end
     end
 
     # def _ask_price(buy_order)
