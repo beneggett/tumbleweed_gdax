@@ -203,15 +203,19 @@ class Decide
             "#{ENV['QUOTE_CURRENCY']} and #{base_profit.round(8)} #{ENV['BASE_CURRENCY']}."
       Bot.log(Rainbow(msg).green.bright)
       sayings = [
-        "Cha Ching",
         "Mo money, mo problems",
-        "i got 99 problems, but crypto gains ain't one",
+        "Cha Ching",
+        "uh,huh.",
+        "Yeaah",
+        "Yessir",
+        "Boooooo yeah",
+        "Woooop Woooop",
         "aww shit",
-        "Damn gina",
+        "Damn son",
         "Yo Yo Yo",
-        "You must feel like some sort of crypto king",
-        ]
-      say_msg = "#{sayings.sample}! You made #{quote_profit.round(8)} dollas!"
+        "Hey crypto king",
+      ]
+      say_msg = "#{sayings.sample}. You made #{quote_profit.round(8)} dollas!"
       Thread.new do
         TerminalNotifier.notify("You made $#{quote_profit.round(8)}", sound:'Ping', title: "Crypto making $$$", execute: "say '#{say_msg}'" )
       end
