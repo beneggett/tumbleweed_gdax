@@ -202,9 +202,9 @@ class Decide
       msg = "Selling at #{ask.round(2)} for an estimated profit of #{quote_profit.round(8)} " +
             "#{ENV['QUOTE_CURRENCY']} and #{base_profit.round(8)} #{ENV['BASE_CURRENCY']}."
       Bot.log(Rainbow(msg).green.bright)
-
-      say_msg = "Sale Posted. Time to make #{quote_profit.round(8)} dollas!"
-      TerminalNotifier.notify("Sale posted. $#{quote_profit.round(8)} profit on the way!", sound:'Ping', title: "Crypto Sale Posted", execute: "say '#{say_msg}'" )
+      money = quote_profit.round(8) > 1 ? "$#{quote_profit.round(8)} Dollas" : "#{quote_profit.round(8) * 100} cents"
+      say_msg = "Sale Posted. Time to make #{money}!"
+      TerminalNotifier.notify("Sale posted. #{money} profit on the way!", sound:'Ping', title: "Crypto Sale Posted", execute: "say '#{say_msg}'" )
     end
 
     # def _ask_price(buy_order)

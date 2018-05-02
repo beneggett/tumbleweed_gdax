@@ -100,9 +100,9 @@ class FlippedTrade < ApplicationRecord
     msg = "Id: #{id}, Profit (#{ENV['QUOTE_CURRENCY']}): #{quote_currency_profit.round(8)}, " +
           "Profit (#{ENV['BASE_CURRENCY']}): #{base_currency_profit}, Fee: #{sell_fee}."
     Bot.log(Rainbow(msg).green.bright.underline)
-    money = quote_currency_profit.round(8) > 1 ? "#{quote_currency_profit.round(8)} Dollars" : "#{quote_currency_profit.round(8) * 100} cents"
+    money = quote_currency_profit.round(8) > 1 ? "$#{quote_currency_profit.round(8)} Dollas" : "#{quote_currency_profit.round(8) * 100} cents"
     say_msg = "#{Bot.saying}. You made #{money}!"
-    TerminalNotifier.notify("You made $#{quote_profit.round(8)}", sound:'Hero', title: "Crypto making $$$", execute: "say '#{say_msg}'" )
+    TerminalNotifier.notify("You made #{quote_currency_profit.round(8)}", sound:'Hero', title: "Crypto making $$$", execute: "say '#{say_msg}'" )
     save
   end
 end
