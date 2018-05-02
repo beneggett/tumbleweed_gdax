@@ -11,6 +11,22 @@ class Bot
       # :nocov:
     end
 
+    def saying
+      [
+        "Mo money, mo problems",
+        "Cha Ching",
+        "uh,huh.",
+        "Yeaah",
+        "Yessir",
+        "Boooooo yeah",
+        "Woooop Woooop",
+        "aww shit",
+        "Damn son",
+        "Yo Yo Yo",
+        "Hey crypto king",
+      ].sample
+    end
+
     def sleep(secs)
       Kernel.sleep(secs)
     end
