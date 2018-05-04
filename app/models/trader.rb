@@ -6,9 +6,9 @@ class Trader
 
     def begin_trade_cycle(log: false)
       unless log
-        Bot.log(Rainbow("AR logging disabled").green.bright
-)
+        Bot.log(Rainbow("AR logging disabled").green.bright )
         ActiveRecord::Base.logger.level = 1
+
       end
       loop do
         # When running after code changes to Trader it can be handy to see the call stack size here.
