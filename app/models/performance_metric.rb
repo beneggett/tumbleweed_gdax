@@ -35,7 +35,9 @@ class PerformanceMetric < ApplicationRecord
 
     def record
       metric = create(calculate)
-      Bot.log(Rainbow("Portfolio Value: #{metric.portfolio_quote_currency_value.round(2)}").green.bright)
+      msg = "Portfolio Value: #{metric.portfolio_quote_currency_value.round(2)}"
+      puts msg
+      Bot.log(Rainbow(msg).green.bright)
     end
 
     def base_currency_for_sale(funds)
