@@ -3,6 +3,7 @@
 class FlippedTrade < ApplicationRecord
   scope :sold, -> { where(sell_pending: false) }
   scope :pending_sells, -> { where(sell_pending: true) }
+  scope :by_order_id, -> (order_id) {where(buy_order_id: order_id).or(FlippedTrade.where(sell_order_id: order_id)) }
 
   def self.quote_currency_profit
     sold.sum(&:quote_currency_profit)

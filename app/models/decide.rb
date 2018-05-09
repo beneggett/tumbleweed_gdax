@@ -148,7 +148,7 @@ class Decide
       ask = (cost / buy_quantity).round(2) + 0.01
       msg = "#{ENV['QUOTE_CURRENCY']} Profit would be #{profit_without_stash.round(8)}. " +
             "Selling at breakeven: #{ask}."
-      Bot.log(Rainbow(msg).green, nil, :warn)
+      Bot.log(Rainbow(msg).pink, nil, :warn)
 
       {
         ask: ask,

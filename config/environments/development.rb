@@ -13,12 +13,11 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # caching
-  if ENV['REDIS_URL']
-      config.action_controller.perform_caching = true
+    config.action_controller.perform_caching = true
+     if ENV['REDIS_URL']
       config.cache_store = :redis_store, ENV['REDIS_URL']
     else
-      config.action_controller.perform_caching = false
-      config.cache_store = :null_store
+      config.cache_store = :memory_store
     end
 
   # Don't care if the mailer can't send.
