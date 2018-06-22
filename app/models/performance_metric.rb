@@ -14,7 +14,6 @@ class PerformanceMetric < ApplicationRecord
     def calculate
       funds = RequestUsher.execute('funds')
       best_bid = BigDecimal.new(RequestUsher.execute('quote')['bids'][0][0])
-
       base_for_sale = base_currency_for_sale(funds)
       quote_bal = quote_currency_balance(funds)
       base_bal = base_currency_balance(funds)
@@ -33,11 +32,28 @@ class PerformanceMetric < ApplicationRecord
       }
     end
 
-    def record
-      metric = create(calculate)
-      msg = "Portfolio Value: #{metric.portfolio_quote_currency_value.round(2)}"
-      puts msg
-      Bot.log(Rainbow(msg).green.bright)
+    def record(all_currencies = false)
+      if all_currencies
+        original_currency = ENV["PRODUCT_ID"]
+        messages = ['LTC-USD', 'BCH-USD', 'BTC-USD', 'ETH-USD'].map do |product_id|
+          ENV["PRODUCT_ID"] = product_id
+          ENV['BASE_CURRENCY'] = product_id.split('-').first
+          metric = create(calculate)
+          msg = "#{ENV["PRODUCT_ID"]} Portfolio Value: #{metric.portfolio_quote_currency_value.round(2)}"
+          Bot.log(Rainbow(msg).green.bright)
+          msg
+        end
+        ENV["PRODUCT_ID"] = original_currency
+        ENV['BASE_CURRENCY'] = original_currency.split('-').first
+        puts messages
+        total = messages.map {|msg| msg.split(': ').last.to_f}.reduce :+
+        puts "-------------------------\nTotal: #{total}"
+      else
+        metric = create(calculate)
+        msg = "#{ENV["PRODUCT_ID"]} Portfolio Value: #{metric.portfolio_quote_currency_value.round(2)}"
+        puts msg
+        Bot.log(Rainbow(msg).green.bright)
+      end
     end
 
     def base_currency_for_sale(funds)
